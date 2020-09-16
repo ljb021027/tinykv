@@ -48,6 +48,7 @@ func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
 	log.Infof("Server started with conf %+v", conf)
 
+	conf.Raft = false
 	var storage storage.Storage
 	if conf.Raft {
 		storage = raft_storage.NewRaftStorage(conf)

@@ -75,7 +75,9 @@ type RawNode struct {
 // NewRawNode returns a new RawNode given configuration and a list of raft peers.
 func NewRawNode(config *Config) (*RawNode, error) {
 	// Your Code Here (2A).
-	return nil, nil
+	return &RawNode{
+		Raft: newRaft(config),
+	}, nil
 }
 
 // Tick advances the internal logical clock by a single tick.
@@ -156,6 +158,9 @@ func (rn *RawNode) HasReady() bool {
 // last Ready results.
 func (rn *RawNode) Advance(rd Ready) {
 	// Your Code Here (2A).
+	for _, msg := range rd.Messages {
+		rn.Step(msg)
+	}
 }
 
 // GetProgress return the the Progress of this node and its peers, if this
